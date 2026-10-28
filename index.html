@@ -1,1 +1,252 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aqua World | Aquarium Store</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f2f9fa;color:#153746}
+header{background:#062b3c;color:white;padding:17px 5%;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.logo{font-size:23px;font-weight:800}
+button{cursor:pointer;border:0;border-radius:9px;padding:12px 15px;font-weight:bold}
+.primary{background:#12c8b6;color:#062b3c}
+.hero{padding:48px 6%;color:white;background:linear-gradient(120deg,#062b3c,#087f8c)}
+.hero h1{font-size:clamp(32px,7vw,52px);max-width:600px;margin:10px 0}
+.hero p{line-height:1.7}
+.hero button{margin-top:10px}
+main{padding:20px 5%;max-width:1200px;margin:auto}
+.search,input:not([type=radio]),textarea,select{width:100%;padding:12px;border:1px solid #c8dade;border-radius:9px;font:inherit;margin:7px 0 13px}
+.categories{display:flex;gap:9px;overflow-x:auto;padding:12px 0}
+.categories button{background:white;border:1px solid #c8dade;white-space:nowrap}
+h2{margin-top:27px}
+.products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.card{background:white;border-radius:14px;overflow:hidden;box-shadow:0 4px 16px #062b3c12;padding-bottom:14px}
+.card img{width:100%;height:140px;object-fit:cover;background:#d9eeee}
+.card h3{font-size:16px;margin:12px 10px 6px}
+.card p{font-size:13px;color:#58727c;margin:6px 10px}
+.price{font-size:19px;font-weight:bold;color:#078b8d;margin:12px 10px}
+.card button{width:calc(100% - 20px);margin:0 10px}
+.panel{background:white;border-radius:15px;padding:17px;margin:23px 0;box-shadow:0 4px 18px #062b3c10}
+.cartrow{display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid #e3edef}
+.qty button{padding:6px 11px;margin-top:6px;background:#e5f6f5}
+.payoption{display:flex;align-items:center;gap:10px;padding:13px;border:1px solid #d5e4e7;border-radius:10px;margin:9px 0}
+.payoption input{width:auto;margin:0}
+.payoption span{line-height:1.5}
+.full{width:100%;margin-top:10px}
+.note{font-size:12px;color:#607780;line-height:1.6}
+.success{background:#e8faf0;border:1px solid #a6e5bd;padding:17px;border-radius:12px;margin-top:18px}
+footer{background:#062b3c;color:white;text-align:center;padding:27px;margin-top:30px}
+@media(min-width:650px){.products{grid-template-columns:repeat(4,minmax(0,1fr))}.card img{height:180px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">🐠 Aqua World</div>
+  <button class="primary" onclick="document.getElementById('cart').scrollIntoView()">🛒 Cart (<span id="count">0</span>)</button>
+</header>
+
+<section class="hero">
+  <p>WELCOME TO YOUR UNDERWATER WORLD</p>
+  <h1>Make Your Own Aquatic Paradise.</h1>
+  <p>Discover colourful fish, beautiful tanks, aquatic plants and premium aquarium essentials.</p>
+  <button class="primary" onclick="document.getElementById('shop').scrollIntoView()">Explore Collection ↓</button>
+</section>
+
+<main id="shop">
+  <input class="search" id="search" placeholder="🔎 Search fish, tanks, food..." oninput="render()">
+  <div class="categories">
+    <button onclick="setFilter('All')">All</button>
+    <button onclick="setFilter('Fish')">🐠 Fish</button>
+    <button onclick="setFilter('Tank')">🫧 Tanks</button>
+    <button onclick="setFilter('Food')">🦐 Food</button>
+    <button onclick="setFilter('Plants')">🌿 Plants</button>
+    <button onclick="setFilter('Accessories')">⚙️ Accessories</button>
+  </div>
+  <h2>Explore Our Collection</h2>
+  <p class="note">Product prices are for this college project demo.</p>
+  <div class="products" id="products"></div>
+
+  <section class="panel" id="cart">
+    <h2>🛒 Your Cart</h2>
+    <div id="cartItems">Your cart is empty.</div>
+    <label for="coupon">Coupon code</label>
+    <input id="coupon" placeholder="Enter AQUA10 for 10% off">
+    <button class="primary" onclick="applyCoupon()">Apply Coupon</button>
+    <p id="couponMsg" class="note"></p>
+    <h3>Subtotal: ₹<span id="subtotal">0</span></h3>
+    <p>Discount: −₹<span id="discountAmount">0</span></p>
+    <h2>Total: ₹<span id="total">0</span></h2>
+    <button class="primary full" onclick="document.getElementById('checkout').scrollIntoView()">Proceed to Checkout →</button>
+  </section>
+
+  <section class="panel" id="checkout">
+    <h2>📦 Delivery Details</h2>
+    <form id="orderForm">
+      <label>Full name *</label>
+      <input name="name" required placeholder="Enter your name">
+      <label>Mobile number *</label>
+      <input name="phone" required inputmode="numeric" pattern="[0-9]{10}" placeholder="10-digit mobile number">
+      <label>Email</label>
+      <input name="email" type="email" placeholder="Email address">
+      <label>Full delivery address *</label>
+      <textarea name="address" required placeholder="House number, street, area"></textarea>
+      <label>Landmark</label>
+      <input name="landmark" placeholder="Nearby landmark">
+      <label>City *</label>
+      <input name="city" required placeholder="Your city">
+      <label>PIN code *</label>
+      <input name="pin" required inputmode="numeric" pattern="[0-9]{6}" placeholder="6-digit PIN code">
+
+      <h2>💳 Choose Payment Method</h2>
+      <p class="note">Demo payment only — no real money will be charged.</p>
+
+      <label class="payoption">
+        <input type="radio" name="payment" value="UPI / QR Demo" required>
+        <span>📱 <b>UPI Payment</b><br><small>Google Pay · PhonePe · Paytm</small></span>
+      </label>
+      <label class="payoption">
+        <input type="radio" name="payment" value="Card Demo">
+        <span>💳 <b>Credit / Debit Card</b><br><small>Demo card payment</small></span>
+      </label>
+      <label class="payoption">
+        <input type="radio" name="payment" value="Net Banking Demo">
+        <span>🏦 <b>Net Banking</b><br><small>Demo payment option</small></span>
+      </label>
+      <label class="payoption">
+        <input type="radio" name="payment" value="Cash on Delivery">
+        <span>📦 <b>Cash on Delivery</b><br><small>Pay when delivered (demo)</small></span>
+      </label>
+
+      <button class="primary full" type="submit">Pay Now / Place Order →</button>
+    </form>
+    <div id="confirmation" hidden></div>
+  </section>
+</main>
+
+<footer>
+  <h3>🐠 Aqua World Aquarium Store</h3>
+  <p>Making every aquarium a little more magical.</p>
+  <p class="note">College project · Demo checkout and payment simulation</p>
+</footer>
+
+<script>
+const products=[
+{id:1,name:"Goldfish",cat:"Fish",price:99,img:"https://images.unsplash.com/photo-1524704654690-b56c05c78a00?auto=format&fit=crop&w=500&q=80",desc:"Bright and beautiful"},
+{id:2,name:"Betta Fish",cat:"Fish",price:249,img:"https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?auto=format&fit=crop&w=500&q=80",desc:"Colourful aquarium fish"},
+{id:3,name:"Guppy Fish",cat:"Fish",price:149,img:"https://images.unsplash.com/photo-1535591273668-578e31182c4f?auto=format&fit=crop&w=500&q=80",desc:"Small and lively"},
+{id:4,name:"Starter Aquarium Tank",cat:"Tank",price:1299,img:"https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=500&q=80",desc:"Start your aquarium"},
+{id:5,name:"Premium Fish Food",cat:"Food",price:199,img:"https://images.unsplash.com/photo-1589924691995-400dc9ecc119?auto=format&fit=crop&w=500&q=80",desc:"Daily fish nutrition"},
+{id:6,name:"Water Filter",cat:"Accessories",price:499,img:"https://images.unsplash.com/photo-1518467166778-b88f373ffec7?auto=format&fit=crop&w=500&q=80",desc:"Aquarium care essential"},
+{id:7,name:"Aquatic Plants",cat:"Plants",price:179,img:"https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=500&q=80",desc:"Add a natural touch"},
+{id:8,name:"Decorative Pebbles",cat:"Accessories",price:129,img:"https://images.unsplash.com/photo-1518467166778-b88f373ffec7?auto=format&fit=crop&w=500&q=80",desc:"Beautiful tank decoration"}
+];
+
+let cart={},filter="All",couponApplied=false;
+
+function setFilter(category){filter=category;render()}
+
+function render(){
+ const term=document.getElementById("search").value.toLowerCase();
+ document.getElementById("products").innerHTML=products.filter(p=>
+ (filter==="All"||p.cat===filter)&&p.name.toLowerCase().includes(term)
+ ).map(p=>`
+ <article class="card">
+ <img src="${p.img}" alt="${p.name}" onerror="this.style.display='none'">
+ <h3>${p.name}</h3><p>${p.desc}</p>
+ <div class="price">₹${p.price}</div>
+ <button class="primary" onclick="add(${p.id})">+ Add to Cart</button>
+ </article>`).join("");
+ updateCart();
+}
+
+function add(id){cart[id]=(cart[id]||0)+1;updateCart()}
+
+function change(id,amount){
+ cart[id]=(cart[id]||0)+amount;
+ if(cart[id]<=0)delete cart[id];
+ updateCart();
+}
+
+function getTotals(){
+ let quantity=0,subtotal=0;
+ Object.keys(cart).forEach(id=>{
+ const p=products.find(x=>x.id===Number(id));
+ quantity+=cart[id];subtotal+=p.price*cart[id];
+ });
+ const discount=couponApplied?Math.round(subtotal*.10):0;
+ return {quantity,subtotal,discount,total:subtotal-discount};
+}
+
+function updateCart(){
+ const totals=getTotals();
+ document.getElementById("count").textContent=totals.quantity;
+ let html="";
+ Object.keys(cart).forEach(id=>{
+ const p=products.find(x=>x.id===Number(id)),q=cart[id];
+ html+=`<div class="cartrow">
+ <div><b>${p.name}</b><br>₹${p.price} each
+ <div class="qty"><button onclick="change(${id},-1)">−</button>
+ <span> ${q} </span><button onclick="change(${id},1)">+</button></div></div>
+ <b>₹${p.price*q}</b></div>`;
+ });
+ document.getElementById("cartItems").innerHTML=html||"Your cart is empty. Add a product to begin!";
+ document.getElementById("subtotal").textContent=totals.subtotal;
+ document.getElementById("discountAmount").textContent=totals.discount;
+ document.getElementById("total").textContent=totals.total;
+}
+
+function applyCoupon(){
+ const code=document.getElementById("coupon").value.trim().toUpperCase();
+ couponApplied=code==="AQUA10";
+ document.getElementById("couponMsg").textContent=couponApplied
+ ?"Success! 10% demo discount applied."
+ :"Invalid code. Try AQUA10.";
+ updateCart();
+}
+
+document.getElementById("orderForm").addEventListener("submit",function(e){
+ e.preventDefault();
+ if(Object.keys(cart).length===0){
+ alert("Please add a product to your cart first.");
+ document.getElementById("cart").scrollIntoView();return;
+ }
+
+ const form=new FormData(this);
+ const payment=form.get("payment");
+ const totals=getTotals();
+ const orderId="AQUA"+Date.now().toString().slice(-7);
+ const isCOD=payment==="Cash on Delivery";
+ const safeName=String(form.get("name")).replace(/[&<>"']/g,"");
+
+ const box=document.getElementById("confirmation");
+ box.hidden=false;
+ box.className="success";
+ box.innerHTML=`
+ <h2>${isCOD?"✅ Order Confirmed!":"🎉 Demo Payment Successful!"}</h2>
+ <p>Thank you, <b>${safeName}</b>!</p>
+ <p>Demo Order ID: <b>${orderId}</b></p>
+ <p>Payment method: <b>${payment}</b></p>
+ <p>Demo amount: <b>₹${totals.total}</b></p>
+ <p>${isCOD?"Cash on Delivery selected for this demo order.":"This is a simulated payment confirmation. No money was charged."}</p>
+ <p class="note">College project demonstration only. This order is not sent to a real store and no real payment was processed.</p>
+ <button class="primary" onclick="newOrder()">Continue Shopping</button>`;
+ box.scrollIntoView({behavior:"smooth"});
+});
+
+function newOrder(){
+ cart={};couponApplied=false;
+ document.getElementById("coupon").value="";
+ document.getElementById("couponMsg").textContent="";
+ document.getElementById("confirmation").hidden=true;
+ document.getElementById("orderForm").reset();
+ updateCart();
+ document.getElementById("shop").scrollIntoView({behavior:"smooth"});
+}
+
+render();
+</script>
+</body>
+</html>
+
