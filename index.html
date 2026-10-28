@@ -134,14 +134,27 @@ footer{background:#062b3c;color:white;text-align:center;padding:27px;margin-top:
 <script>
 const products=[
 {id:1,name:"Goldfish",cat:"Fish",price:99,img:"https://images.unsplash.com/photo-1524704654690-b56c05c78a00?auto=format&fit=crop&w=500&q=80",desc:"Bright and beautiful"},
-{id:2,name:"Betta Fish",cat:"Fish",price:249,img:"https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?auto=format&fit=crop&w=500&q=80",desc:"Colourful aquarium fish"},
+{id:2,name:"Betta Fish",cat:"Fish",price:249,img:"https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?auto=format&fit=crop&w=500&q=80",desc:"Colourful show fish"},
 {id:3,name:"Guppy Fish",cat:"Fish",price:149,img:"https://images.unsplash.com/photo-1535591273668-578e31182c4f?auto=format&fit=crop&w=500&q=80",desc:"Small and lively"},
-{id:4,name:"Starter Aquarium Tank",cat:"Tank",price:1299,img:"https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=500&q=80",desc:"Start your aquarium"},
-{id:5,name:"Premium Fish Food",cat:"Food",price:199,img:"https://images.unsplash.com/photo-1589924691995-400dc9ecc119?auto=format&fit=crop&w=500&q=80",desc:"Daily fish nutrition"},
-{id:6,name:"Water Filter",cat:"Accessories",price:499,img:"https://images.unsplash.com/photo-1518467166778-b88f373ffec7?auto=format&fit=crop&w=500&q=80",desc:"Aquarium care essential"},
-{id:7,name:"Aquatic Plants",cat:"Plants",price:179,img:"https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=500&q=80",desc:"Add a natural touch"},
-{id:8,name:"Decorative Pebbles",cat:"Accessories",price:129,img:"https://images.unsplash.com/photo-1518467166778-b88f373ffec7?auto=format&fit=crop&w=500&q=80",desc:"Beautiful tank decoration"}
+{id:4,name:"Angelfish",cat:"Fish",price:199,img:"https://images.unsplash.com/photo-1524704654690-b56c05c78a00?auto=format&fit=crop&w=500&q=80",desc:"Elegant tropical fish"},
+{id:5,name:"Molly Fish",cat:"Fish",price:79,img:"https://images.unsplash.com/photo-1535591273668-578e31182c4f?auto=format&fit=crop&w=500&q=80",desc:"Easy-care aquarium fish"},
+{id:6,name:"Neon Tetra",cat:"Fish",price:59,img:"https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?auto=format&fit=crop&w=500&q=80",desc:"Tiny colourful fish"},
+{id:7,name:"Small Starter Tank",cat:"Tank",price:799,img:"https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=500&q=80",desc:"Perfect for beginners"},
+{id:8,name:"Glass Aquarium 2ft",cat:"Tank",price:2499,img:"https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=500&q=80",desc:"Spacious glass tank"},
+{id:9,name:"Premium Aquarium Kit",cat:"Tank",price:3499,img:"https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=500&q=80",desc:"Tank setup starter kit"},
+{id:10,name:"Mini Fish Bowl",cat:"Tank",price:399,img:"https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=500&q=80",desc:"Compact display bowl"},
+{id:11,name:"Daily Fish Flakes",cat:"Food",price:99,img:"https://images.unsplash.com/photo-1589924691995-400dc9ecc119?auto=format&fit=crop&w=500&q=80",desc:"Everyday fish nutrition"},
+{id:12,name:"Fish Food Pellets",cat:"Food",price:149,img:"https://images.unsplash.com/photo-1589924691995-400dc9ecc119?auto=format&fit=crop&w=500&q=80",desc:"Floating food pellets"},
+{id:13,name:"Tropical Fish Food",cat:"Food",price:199,img:"https://images.unsplash.com/photo-1589924691995-400dc9ecc119?auto=format&fit=crop&w=500&q=80",desc:"For tropical fish"},
+{id:14,name:"Betta Food",cat:"Food",price:129,img:"https://images.unsplash.com/photo-1589924691995-400dc9ecc119?auto=format&fit=crop&w=500&q=80",desc:"Food for betta fish"},
+{id:15,name:"Aquatic Green Plants",cat:"Plants",price:179,img:"https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=500&q=80",desc:"Natural tank greenery"},
+{id:16,name:"Aquarium Moss",cat:"Plants",price:149,img:"https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=500&q=80",desc:"Green aquascaping moss"},
+{id:17,name:"Aquarium Filter",cat:"Accessories",price:499,img:"https://images.unsplash.com/photo-1518467166778-b88f373ffec7?auto=format&fit=crop&w=500&q=80",desc:"Helps clean tank water"},
+{id:18,name:"Air Pump",cat:"Accessories",price:349,img:"https://images.unsplash.com/photo-1518467166778-b88f373ffec7?auto=format&fit=crop&w=500&q=80",desc:"Adds oxygen to water"},
+{id:19,name:"Aquarium LED Light",cat:"Accessories",price:599,img:"https://images.unsplash.com/photo-1518467166778-b88f373ffec7?auto=format&fit=crop&w=500&q=80",desc:"Bright tank lighting"},
+{id:20,name:"Decorative Pebbles",cat:"Accessories",price:129,img:"https://images.unsplash.com/photo-1518467166778-b88f373ffec7?auto=format&fit=crop&w=500&q=80",desc:"Colourful tank decoration"}
 ];
+
 
 let cart={},filter="All",couponApplied=false;
 
