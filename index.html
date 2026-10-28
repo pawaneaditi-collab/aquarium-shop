@@ -102,10 +102,12 @@ footer{background:#062b3c;color:white;text-align:center;padding:27px;margin-top:
       <h2>💳 Choose Payment Method</h2>
       <p class="note">Demo payment only — no real money will be charged.</p>
 
-      <label class="payoption">
-        <input type="radio" name="payment" value="UPI / QR Demo" required>
-        <span>📱 <b>UPI Payment</b><br><small>Google Pay · PhonePe · Paytm</small></span>
-      </label>
+      
+<label class="payoption">
+  <input type="radio" name="payment" value="UPI" required>
+  <span>💳 <b>Pay via UPI</b><br><small>Google Pay · PhonePe · Paytm</small></span>
+</label>
+
       <label class="payoption">
         <input type="radio" name="payment" value="Card Demo">
         <span>💳 <b>Credit / Debit Card</b><br><small>Demo card payment</small></span>
@@ -221,6 +223,13 @@ function applyCoupon(){
 
 document.getElementById("orderForm").addEventListener("submit",function(e){
  e.preventDefault();
+  const selectedPayment = document.querySelector('input[name="payment"]:checked');
+if (selectedPayment && selectedPayment.value === "UPI") {
+  const totals = getTotals();
+  const upiLink = "upi://pay?pa=8767572771%40ibl&pn=Aqua%20World&am=" + totals.total + "&cu=INR";
+  window.location.href = upiLink;
+  return;
+}
  if(Object.keys(cart).length===0){
  alert("Please add a product to your cart first.");
  document.getElementById("cart").scrollIntoView();return;
